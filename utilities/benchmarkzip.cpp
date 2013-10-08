@@ -29,14 +29,14 @@ int main(int argc, char* argv[])
 /*
 	const size_t max_size = 4 * 12171187; // 46.5MB
 	float* h_mwt = (float*)malloc(max_size);
-	float* h_logp = (float*)malloc(max_size);
+	float* h_lgp = (float*)malloc(max_size);
 	float* h_nrb = (float*)malloc(max_size);
 	float* h_hbd = (float*)malloc(max_size);
 	float* h_hba = (float*)malloc(max_size);
-	float* h_charge = (float*)malloc(max_size);
-	float* h_ad = (float*)malloc(max_size);
-	float* h_pd = (float*)malloc(max_size);
-	float* h_tpsa = (float*)malloc(max_size);
+	float* h_chg = (float*)malloc(max_size);
+	float* h_ads = (float*)malloc(max_size);
+	float* h_pds = (float*)malloc(max_size);
+	float* h_psa = (float*)malloc(max_size);
 
 	size_t num_ligands = 0;
 	auto_cpu_timer t;
@@ -61,23 +61,23 @@ int main(int argc, char* argv[])
 		const size_t t7 = line.find_first_of('\t', t6 + 2);
 		const size_t t8 = line.find_first_of('\t', t7 + 2);
 		const float mwt = lexical_cast<float>(line.substr(0, t1));
-		const float logp = lexical_cast<float>(line.substr(t1 + 1, t2 - t1 - 1));
-		const float ad = lexical_cast<float>(line.substr(t2 + 1, t3 - t2 - 1));
-		const float pd = lexical_cast<float>(line.substr(t3 + 1, t4 - t3 - 1));
+		const float lgp = lexical_cast<float>(line.substr(t1 + 1, t2 - t1 - 1));
+		const float ads = lexical_cast<float>(line.substr(t2 + 1, t3 - t2 - 1));
+		const float pds = lexical_cast<float>(line.substr(t3 + 1, t4 - t3 - 1));
 		const int hbd = lexical_cast<int>(line.substr(t4 + 1, t5 - t4 - 1));
 		const int hba = lexical_cast<int>(line.substr(t5 + 1, t6 - t5 - 1));
-		const float tpsa = lexical_cast<float>(line.substr(t6 + 1, t7 - t6 - 1));
-		const int charge = lexical_cast<int>(line.substr(t7 + 1, t8 - t7 - 1));
+		const float psa = lexical_cast<float>(line.substr(t6 + 1, t7 - t6 - 1));
+		const int chg = lexical_cast<int>(line.substr(t7 + 1, t8 - t7 - 1));
 		const int nrb = lexical_cast<int>(line.substr(t8 + 1));
 		h_mwt[num_ligands] = mwt;
-		h_logp[num_ligands] = logp;
+		h_lgp[num_ligands] = lgp;
 		h_nrb[num_ligands] = nrb;
 		h_hbd[num_ligands] = hbd;
 		h_hba[num_ligands] = hba;
-		h_charge[num_ligands] = charge;
-		h_ad[num_ligands] = ad;
-		h_pd[num_ligands] = pd;
-		h_tpsa[num_ligands] = tpsa;
+		h_chg[num_ligands] = chg;
+		h_ads[num_ligands] = ads;
+		h_pds[num_ligands] = pds;
+		h_psa[num_ligands] = psa;
 		++num_ligands;
 */
 	}
@@ -89,14 +89,14 @@ int main(int argc, char* argv[])
 	}
 /*
 	free(h_mwt);
-	free(h_logp);
+	free(h_lgp);
 	free(h_nrb);
 	free(h_hbd);
 	free(h_hba);
-	free(h_charge);
-	free(h_ad);
-	free(h_pd);
-	free(h_tpsa);
+	free(h_chg);
+	free(h_ads);
+	free(h_pds);
+	free(h_psa);
 */
 	return 0;
 }

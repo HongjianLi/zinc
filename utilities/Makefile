@@ -1,4 +1,4 @@
-CC = clang++ -std=c++11
+CC=clang++ -std=c++11 -O2
 
 all: alignfloat benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractlines extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup minmax overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders splitmol2 splitsdf updatepdbqt zincidtoindex
 

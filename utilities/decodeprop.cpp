@@ -19,28 +19,28 @@ int main(int argc, char* argv[])
 	for (size_t i = 0; i < 12171187; ++i)
 	{
 		uint32_t id;
-		float mwt, logp, ad, pd;
-		int16_t hbd, hba, tpsa, charge, nrb;
+		float mwt, lgp, ads, pds;
+		int16_t hbd, hba, psa, chg, nrb;
 		bin.read((char*)&id, sizeof(id))
 		   .read((char*)&mwt, sizeof(mwt))
-		   .read((char*)&logp, sizeof(logp))
-		   .read((char*)&ad, sizeof(ad))
-		   .read((char*)&pd, sizeof(pd))
+		   .read((char*)&lgp, sizeof(lgp))
+		   .read((char*)&ads, sizeof(ads))
+		   .read((char*)&pds, sizeof(pds))
 		   .read((char*)&hbd, sizeof(hbd))
 		   .read((char*)&hba, sizeof(hba))
-		   .read((char*)&tpsa, sizeof(tpsa))
-		   .read((char*)&charge, sizeof(charge))
+		   .read((char*)&psa, sizeof(psa))
+		   .read((char*)&chg, sizeof(chg))
 		   .read((char*)&nrb, sizeof(nrb));
 /*
 		cout << id << '\t'
 		     << mwt << '\t'
-		     << logp << '\t'
-		     << ad << '\t'
-		     << pd << '\t'
+		     << lgp << '\t'
+		     << ads << '\t'
+		     << pds << '\t'
 		     << hbd << '\t'
 		     << hba << '\t'
-		     << tpsa << '\t'
-		     << charge << '\t'
+		     << psa << '\t'
+		     << chg << '\t'
 		     << nrb << '\n';
 */
 	}

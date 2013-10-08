@@ -18,35 +18,35 @@ int main(int argc, char* argv[])
 
 	const float mwt_lb = 400;
 	const float mwt_ub = 500;
-	const float logp_lb = 0;
-	const float logp_ub = 5;
+	const float lgp_lb = 0;
+	const float lgp_ub = 5;
 	const int nrb_lb = 2;
 	const int nrb_ub = 8;
 	const int hbd_lb = 2;
 	const int hbd_ub = 5;
 	const int hba_lb = 2;
 	const int hba_ub = 10;
-	const int charge_lb = 0;
-	const int charge_ub = 0;
-	const float ad_lb = 0;
-	const float ad_ub = 12;
-	const float pd_lb = -50;
-	const float pd_ub = 0;
-	const float tpsa_lb = 20;
-	const float tpsa_ub = 100;
+	const int chg_lb = 0;
+	const int chg_ub = 0;
+	const float ads_lb = 0;
+	const float ads_ub = 12;
+	const float pds_lb = -50;
+	const float pds_ub = 0;
+	const float psa_lb = 20;
+	const float psa_ub = 100;
 
 	// Allocate host memory
 	cout << "Allocating host memory" << std::endl;
 	const size_t max_size = 4 * 12171187; // 46.5MB
 	float* h_mwt = (float*)malloc(max_size);
-	float* h_logp = (float*)malloc(max_size);
+	float* h_lgp = (float*)malloc(max_size);
 	float* h_nrb = (float*)malloc(max_size);
 	float* h_hbd = (float*)malloc(max_size);
 	float* h_hba = (float*)malloc(max_size);
-	float* h_charge = (float*)malloc(max_size);
-	float* h_ad = (float*)malloc(max_size);
-	float* h_pd = (float*)malloc(max_size);
-	float* h_tpsa = (float*)malloc(max_size);
+	float* h_chg = (float*)malloc(max_size);
+	float* h_ads = (float*)malloc(max_size);
+	float* h_pds = (float*)malloc(max_size);
+	float* h_psa = (float*)malloc(max_size);
 
 	// Read 16_prop_slice_ss.xls
 	cout << "Reading prop.xls" << std::endl;
@@ -69,23 +69,23 @@ int main(int argc, char* argv[])
 		const size_t t10 = line.find_first_of('\t', t9 + 2);
 		const size_t t11 = line.find_first_of('\t', t10 + 2);
 		const float mwt = lexical_cast<float>(line.substr(t2 + 1, t3 - t2 - 1));
-		const float logp = lexical_cast<float>(line.substr(t3 + 1, t4 - t3 - 1));
-		const float ad = lexical_cast<float>(line.substr(t4 + 1, t5 - t4 - 1));
-		const float pd = lexical_cast<float>(line.substr(t5 + 1, t6 - t5 - 1));
+		const float lgp = lexical_cast<float>(line.substr(t3 + 1, t4 - t3 - 1));
+		const float ads = lexical_cast<float>(line.substr(t4 + 1, t5 - t4 - 1));
+		const float pds = lexical_cast<float>(line.substr(t5 + 1, t6 - t5 - 1));
 		const int hbd = lexical_cast<int>(line.substr(t6 + 1, t7 - t6 - 1));
 		const int hba = lexical_cast<int>(line.substr(t7 + 1, t8 - t7 - 1));
-		const float tpsa = lexical_cast<float>(line.substr(t8 + 1, t9 - t8 - 1));
-		const int charge = lexical_cast<int>(line.substr(t9 + 1, t10 - t9 - 1));
+		const float psa = lexical_cast<float>(line.substr(t8 + 1, t9 - t8 - 1));
+		const int chg = lexical_cast<int>(line.substr(t9 + 1, t10 - t9 - 1));
 		const int nrb = lexical_cast<int>(line.substr(t10 + 1, t11 - t10 - 1));
 		h_mwt[num_ligands] = mwt;
-		h_logp[num_ligands] = logp;
+		h_lgp[num_ligands] = lgp;
 		h_nrb[num_ligands] = nrb;
 		h_hbd[num_ligands] = hbd;
 		h_hba[num_ligands] = hba;
-		h_charge[num_ligands] = charge;
-		h_ad[num_ligands] = ad;
-		h_pd[num_ligands] = pd;
-		h_tpsa[num_ligands] = tpsa;
+		h_chg[num_ligands] = chg;
+		h_ads[num_ligands] = ads;
+		h_pds[num_ligands] = pds;
+		h_psa[num_ligands] = psa;
 		++num_ligands;
 	}
 	cout << "Found " << num_ligands << " ligands" << std::endl;
@@ -95,28 +95,28 @@ int main(int argc, char* argv[])
 	for (size_t i = 0; i < num_ligands; ++i)
 	{
 		const float mwt = h_mwt[i];
-		const float logp = h_logp[i];
+		const float lgp = h_lgp[i];
 		const int nrb = h_nrb[i];
 		const int hbd = h_hbd[i];
 		const int hba = h_hba[i];
-		const int charge = h_charge[i];
-		const float ad = h_ad[i];
-		const float pd = h_pd[i];
-		const float tpsa = h_tpsa[i];
-		if ((mwt_lb <= mwt) && (mwt <= mwt_ub) && (logp_lb <= logp) && (logp <= logp_ub) && (nrb_lb <= nrb) && (nrb <= nrb_ub) && (hbd_lb <= hbd) && (hbd <= hbd_ub) && (hba_lb <= hba) && (hba <= hba_ub) && (charge_lb <= charge) && (charge <= charge_ub) && (ad_lb <= ad) && (ad <= ad_ub) && (pd_lb <= pd) && (pd <= pd_ub) && (tpsa_lb <= tpsa) && (tpsa <= tpsa_ub)) ++count;
+		const int chg = h_chg[i];
+		const float ads = h_ads[i];
+		const float pds = h_pds[i];
+		const float psa = h_psa[i];
+		if ((mwt_lb <= mwt) && (mwt <= mwt_ub) && (lgp_lb <= lgp) && (lgp <= lgp_ub) && (nrb_lb <= nrb) && (nrb <= nrb_ub) && (hbd_lb <= hbd) && (hbd <= hbd_ub) && (hba_lb <= hba) && (hba <= hba_ub) && (chg_lb <= chg) && (chg <= chg_ub) && (ads_lb <= ads) && (ads <= ads_ub) && (pds_lb <= pds) && (pds <= pds_ub) && (psa_lb <= psa) && (psa <= psa_ub)) ++count;
 	}
 	cout << "CPU = " << count << std::endl;
 
 	// Free resources
 	free(h_mwt);
-	free(h_logp);
+	free(h_lgp);
 	free(h_nrb);
 	free(h_hbd);
 	free(h_hba);
-	free(h_charge);
-	free(h_ad);
-	free(h_pd);
-	free(h_tpsa);
+	free(h_chg);
+	free(h_ads);
+	free(h_pds);
+	free(h_psa);
 
 	return 0;
 }
