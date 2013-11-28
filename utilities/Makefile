@@ -1,6 +1,6 @@
 CC=clang++ -std=c++11 -O2
 
-all: alignfloat benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractlines extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup minmax overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders splitmol2 splitsdf updatepdbqt zincidtoindex
+all: alignfloat benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup minmax overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders splitmol2 splitsdf updatepdbqt zincidtoindex
 
 alignfloat: alignfloat.cpp
 	$(CC) -o $@ $<
@@ -55,6 +55,9 @@ encodehdr: encodehdr.cpp
 
 extractlines: extractlines.cpp
 	$(CC) -o $@ $< -lboost_system -lboost_filesystem
+
+extractnvfap: extractnvfap.cpp
+	$(CC) -o $@ $<
 
 extractpurch: extractpurch.cpp
 	$(CC) -o $@ $< -lboost_system -lboost_filesystem
