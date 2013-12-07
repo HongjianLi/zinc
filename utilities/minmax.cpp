@@ -1,25 +1,17 @@
 #include <iostream>
-#include <fstream>
+#include <limits>
+#include <algorithm>
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-	if (argc == 1)
-	{
-		cout << "minmax id.csv\n";
-		return 0;
-	}
-
-	string line;
-	size_t cmin, cmax;
-	ifstream ifs(argv[1]);
-	getline(ifs, line);
-	cmin = cmax = stoul(line);
-	while (getline(ifs, line))
+	size_t vmin = numeric_limits<size_t>::max();
+	size_t vmax = 0;
+	for (string line; getline(cin, line);)
 	{
 		const size_t v = stoul(line);
-		cmin = min<size_t>(cmin, v);
-		cmax = max<size_t>(cmax, v);
+		vmin = min<size_t>(vmin, v);
+		vmax = max<size_t>(vmax, v);
 	}
-	cout << cmin << '\n' << cmax << '\n';
+	cout << vmin << '\n' << vmax << '\n';
 }
