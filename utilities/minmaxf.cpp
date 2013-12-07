@@ -5,11 +5,11 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	size_t vmin = numeric_limits<float>::max();
-	size_t vmax = 0;
+	float vmin = numeric_limits<float>::max();
+	float vmax = 0;
 	for (string line; getline(cin, line);)
 	{
-		const size_t v = stoul(line);
+		const float v = stoul(line);
 		vmin = min<float>(vmin, v);
 		vmax = max<float>(vmax, v);
 	}
