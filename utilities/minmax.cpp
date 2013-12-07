@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	size_t vmin = numeric_limits<size_t>::max();
-	size_t vmax = 0;
+	size_t vmax = numeric_limits<size_t>::min();
 	for (string line; getline(cin, line);)
 	{
 		const size_t v = stoul(line);
