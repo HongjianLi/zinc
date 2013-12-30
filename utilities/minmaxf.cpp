@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	float vmin = numeric_limits<float>::max();
-	float vmax = numeric_limits<float>::min();
+	float vmax = numeric_limits<float>::lowest();
 	for (string line; getline(cin, line);)
 	{
 		const float v = stof(line);
