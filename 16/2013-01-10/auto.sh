@@ -11,7 +11,7 @@ for s in $(seq $beg $end); do
 done
 # Split mol2's that are not in 16_id.csv
 mkdir -p mol2 pdbqt
-../../utilities/utilities/filtermol2 ~/istar/idock/16_id.csv $beg $end 16_id_new.csv
+../../utilities/filtermol2 ~/istar/idock/16_id.csv $beg $end 16_id_new.csv
 # Convert mol2 to pdbqt
 cd mol2
 for mol2 in mol2/*; do
@@ -19,14 +19,14 @@ for mol2 in mol2/*; do
 done
 cd ..
 # Update (3 hours)
-../../utilities/utilities/updatepdbqt ../2012-04-26/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ../2012-04-26/16_lig.pdbqt pdbqt 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv
+../../utilities/updatepdbqt ../2012-04-26/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ../2012-04-26/16_lig.pdbqt pdbqt 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv
 # Verify
 n=$(wc -l < 16_id.csv)
 echo "ligands: $n"
 if [[ $[8 * n] != $(wc -c < 16_hdr.bin) ]]; then
 	echo "16_hdr.bin file size not matched"
 fi
-if [[ 0 != $(../../utilities/utilities/seekheaders 16_lig.pdbqt 16_hdr.bin | wc -l) ]]; then
+if [[ 0 != $(../../utilities/seekheaders 16_lig.pdbqt 16_hdr.bin | wc -l) ]]; then
 	echo "seekheaders 16_lig.pdbqt 16_hdr.bin failed"
 fi
 if [[ $[1 + n] != $(wc -l < 16_prop.tsv) ]]; then
