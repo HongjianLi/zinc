@@ -11,7 +11,7 @@ for s in $(seq $beg $end); do
 done
 # Split mol2's that are not in 16_id.csv
 mkdir -p mol2 pdbqt
-../../utilities/filtermol2 ~/istar/idock/16_id.csv $beg $end 16_id_new.csv
+../../utilities/filtermol2 ../2012-04-26/16_id.csv $beg $end 16_id_new.csv
 # Convert mol2 to pdbqt
 cd mol2
 for mol2 in mol2/*; do
