@@ -15,8 +15,9 @@ done
 sort 16_p0.*.csv | tee 16_id_new.csv | uniq -d | xargs -I {} grep {} 16_p0.*.csv
 # Convert mol2 to pdbqt. This step requires a few days, and can be parallelized.
 for s in $(seq $beg 1 $end); do
+	echo Converting 16_p0.$s
 	mkdir -p 16_p0.$s.pdbqt
-	cd 16_p0.$s.pdbqt
+	cd 16_p0.$s
 	for mol2 in *; do
 		python2.5 ${MGLTOOLS_ROOT}/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l $mol2 -o ../16_p0.$s.pdbqt/${mol2:0:8}.pdbqt
 	done
