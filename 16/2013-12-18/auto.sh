@@ -7,15 +7,12 @@ curl -O http://zinc.docking.org/db/bysubset/16/16_purch.xls
 for s in $(seq $beg $end); do
 	curl -s http://zinc.docking.org/db/bysubset/16/16_p0.$s.mol2.gz | gunzip > 16_p0.$s.mol2
 done
-# Split mol2's that are not in 16_id.csv. File stems are 8 characters wide, without the ZINC prefix. This step requires 7 hours.
+# Split mol2's that are not in 16_id.csv. File stems are 8 characters wide, without the ZINC prefix. This step requires 7 hours, and can be parallelized by subdividing {$beg..$end}.
 for s in $(seq $beg $end); do
 	mkdir -p 16_p0.$s
 done
 ../../utilities/filtermol2 ../2013-01-10/16_id.csv $beg $end
-for s in $(seq $beg $end); do
-	sort -c 16_p0.$s.csv
-done
-sort -m 16_p0.*.csv > 16_id_new.csv
+sort 16_p0.*.csv | tee 16_id_new.csv | uniq -d | xargs -I {} grep {} 16_p0.*.csv
 # Convert mol2 to pdbqt. This step requires a few days.
 mkdir -p pdbqt
 cd mol2
