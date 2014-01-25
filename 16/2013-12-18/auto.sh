@@ -13,13 +13,15 @@ for s in $(seq $beg $end); do
 done
 ../../utilities/filtermol2 ../2013-01-10/16_id.csv $beg $end
 sort 16_p0.*.csv | tee 16_id_new.csv | uniq -d | xargs -I {} grep {} 16_p0.*.csv
-# Convert mol2 to pdbqt. This step requires a few days.
-mkdir -p pdbqt
-cd mol2
-for mol2 in *; do
-	python2.5 ${MGLTOOLS_ROOT}/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l $mol2 -o ../pdbqt/${mol2:0:8}.pdbqt
+# Convert mol2 to pdbqt. This step requires a few days, and can be parallelized.
+for s in $(seq $beg 1 $end); do
+	mkdir -p 16_p0.$s.pdbqt
+	cd 16_p0.$s.pdbqt
+	for mol2 in *; do
+		python2.5 ${MGLTOOLS_ROOT}/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l $mol2 -o ../16_p0.$s.pdbqt/${mol2:0:8}.pdbqt
+	done
+	cd ..
 done
-cd ..
 # Update 16_lig.pdbqt. This step requires 3 hours.
 ../../utilities/updatepdbqt ../2013-01-10/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ../2013-01-10/16_lig.pdbqt pdbqt 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv
 # Verify
