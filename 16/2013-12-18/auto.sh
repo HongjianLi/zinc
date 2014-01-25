@@ -1,22 +1,29 @@
 # Specify the beginning and ending slices
 beg=0
 end=126
-# Download and unzip
+# Download and unzip 16_*
 curl -O http://zinc.docking.org/db/bysubset/16/16_prop.xls
 curl -O http://zinc.docking.org/db/bysubset/16/16_purch.xls
 for s in $(seq $beg $end); do
 	curl -s http://zinc.docking.org/db/bysubset/16/16_p0.$s.mol2.gz | gunzip > 16_p0.$s.mol2
 done
-# Split mol2's that are not in 16_id.csv. 7 hoursa are required.
-mkdir -p mol2 pdbqt
-../../utilities/filtermol2 ../2013-01-10/16_id.csv $beg $end 16_id_new.csv
-# Convert mol2 to pdbqt. Filenames are without the ZINC prefix.
+# Split mol2's that are not in 16_id.csv. File stems are 8 characters wide, without the ZINC prefix. This step requires 7 hours.
+for s in $(seq $beg $end); do
+	mkdir -p 16_p0.$s
+done
+../../utilities/filtermol2 ../2013-01-10/16_id.csv $beg $end
+for s in $(seq $beg $end); do
+	sort -c 16_p0.$s.csv
+done
+sort -m 16_p0.*.csv > 16_id_new.csv
+# Convert mol2 to pdbqt. This step requires a few days.
+mkdir -p pdbqt
 cd mol2
 for mol2 in *; do
 	python2.5 ${MGLTOOLS_ROOT}/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l $mol2 -o ../pdbqt/${mol2:0:8}.pdbqt
 done
 cd ..
-# Update 16_lig.pdbqt. 3 hours are required.
+# Update 16_lig.pdbqt. This step requires 3 hours.
 ../../utilities/updatepdbqt ../2013-01-10/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ../2013-01-10/16_lig.pdbqt pdbqt 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv
 # Verify
 n=$(wc -l < 16_id.csv)
