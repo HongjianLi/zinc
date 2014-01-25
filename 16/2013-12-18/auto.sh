@@ -5,20 +5,18 @@ end=126
 curl -O http://zinc.docking.org/db/bysubset/16/16_prop.xls
 curl -O http://zinc.docking.org/db/bysubset/16/16_purch.xls
 for s in $(seq $beg $end); do
-	slice=16_p0.$s
-	curl -O http://zinc.docking.org/db/bysubset/16/$slice.mol2.gz
-	gunzip $slice.mol2.gz
+	curl -s http://zinc.docking.org/db/bysubset/16/16_p0.$s.mol2.gz | gunzip > 16_p0.$s.mol2
 done
-# Split mol2's that are not in 16_id.csv (7 hours required)
+# Split mol2's that are not in 16_id.csv. 7 hoursa are required.
 mkdir -p mol2 pdbqt
 ../../utilities/filtermol2 ../2013-01-10/16_id.csv $beg $end 16_id_new.csv
-# Convert mol2 to pdbqt
+# Convert mol2 to pdbqt. Filenames are without the ZINC prefix.
 cd mol2
-for mol2 in mol2/*; do
-	python2.5 ~/mgltools_x86_64Linux2_1.5.6/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l $mol2 -o ../pdbqt/${mol2:0:8}.pdbqt
+for mol2 in *; do
+	python2.5 ${MGLTOOLS_ROOT}/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l $mol2 -o ../pdbqt/${mol2:0:8}.pdbqt
 done
 cd ..
-# Update (3 hours required)
+# Update 16_lig.pdbqt. 3 hours are required.
 ../../utilities/updatepdbqt ../2013-01-10/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ../2013-01-10/16_lig.pdbqt pdbqt 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv
 # Verify
 n=$(wc -l < 16_id.csv)
@@ -50,6 +48,5 @@ rm -rf *.mol2 mol2 pdbqt
 # Deploy updated files
 mv *.png ~/istar/public/idock
 scp 16_prop.bin.gz pc89066:/home/hjli/istar/idock
-scp 16_lig.pdbqt proj74:/home/hjli/nfs/hjli/istar/idock
-scp 16_hdr.bin proj74:/home/hjli/nfs/hjli/istar/idock
-# Update minmax in web.js, index.html, index.js
+scp 16_lig.pdbqt 16_hdr.bin proj74:/home/hjli/nfs/hjli/istar/idock
+# Update minmax in web.js, public/idock/index.html, public/idock/index.js
