@@ -21,7 +21,7 @@ void output(const vector<string>& ids, const string& id, const string& slice, ve
 
 int main(int argc, char* argv[])
 {
-	if (argc != 5)
+	if (argc != 4)
 	{
 		cout << "filtermol2 16_id.csv begin_slice end_slice\n";
 		return 0;
