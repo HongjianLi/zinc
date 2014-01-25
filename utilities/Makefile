@@ -66,7 +66,7 @@ filterid: filterid.cpp
 	$(CC) -o $@ $<
 
 filtermol2: filtermol2.cpp
-	$(CC) -o $@ $< -lboost_system -lboost_filesystem
+	$(CC) -o $@ $<
 
 filtermol2id: filtermol2id.cpp
 	$(CC) -o $@ $< -lboost_system -lboost_filesystem

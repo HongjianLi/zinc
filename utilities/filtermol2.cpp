@@ -23,24 +23,28 @@ int main(int argc, char* argv[])
 {
 	if (argc != 5)
 	{
-		std::cout << "filtermol2 16_id.csv begin_slice end_slice 16_id_new.csv\n";
+		cout << "filtermol2 16_id.csv begin_slice end_slice 16_id_new.csv\n";
 		return 0;
 	}
 
+	// Parse 16_id.csv, which is assumed to be sorted.
 	string line;
 	vector<string> ids;
-	ids.reserve(12171187);
-	for (ifstream id(argv[1]); getline(id, line); ids.push_back(line));
+	ids.reserve(17224424);
+	for (ifstream ifs(argv[1]); getline(ifs, line); ids.push_back(line));
 
-	const size_t b = atoi(argv[2]);
-	const size_t e = atoi(argv[3]);
+	// Filter 16_p0.*.mol2 one by one.
+	const size_t beg = stoul(argv[2]);
+	const size_t end = stoul(argv[3]);
 	vector<string> lines;
 	string id;
 	ofstream ofsnid(argv[4]);
-	for (size_t s = b; s <= e; ++s)
+	for (size_t s = beg; s <= end; ++s)
 	{
-		cout << s << endl;
-		for (ifstream mol2("16_p0." + to_string(s) + ".mol2"); getline(mol2, line); lines.push_back(line))
+		const string slice = "16_p0." + to_string(s);
+		const string mol2 = slice + ".mol2";
+		cout << "Filtering " << slice << endl;
+		for (ifstream ifs(mol2); getline(ifs, line); lines.push_back(line))
 		{
 			if (line == "@<TRIPOS>MOLECULE" && lines.size())
 			{
@@ -48,7 +52,7 @@ int main(int argc, char* argv[])
 			}
 			else if (line[0] == 'Z')
 			{
-				id = line.substr(4);
+				id = line.substr(4); // id is 8 characters wide, without the ZINC prefix.
 			}
 		}
 		output(ids, id, lines, ofsnid);
