@@ -1,7 +1,7 @@
 # Specify the beginning and ending slices
 beg=0
 end=126
-# Download and unzip 16_*
+# Download and unzip 16_*. The newly-added ligands are distributed among the slices. Therefore all slices must be downloaded.
 curl -O http://zinc.docking.org/db/bysubset/16/16_prop.xls
 curl -O http://zinc.docking.org/db/bysubset/16/16_purch.xls
 for s in $(seq $beg $end); do
