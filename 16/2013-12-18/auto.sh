@@ -17,11 +17,9 @@ sort 16_p0.*.csv | tee 16_id_new.csv | uniq -d | xargs -I {} grep {} 16_p0.*.csv
 for s in $(seq $beg 1 $end); do
 	echo Converting 16_p0.$s
 	mkdir -p 16_p0.$s.pdbqt
-	cd 16_p0.$s
-	for mol2 in *; do
-		python2.5 ${MGLTOOLS_ROOT}/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l $mol2 -o ../16_p0.$s.pdbqt/${mol2:0:8}.pdbqt
+	for id in $(cat 16_p0.$s.csv); do
+		python2.5 ${MGLTOOLS_ROOT}/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l 16_p0.$s/$id.mol2 -o 16_p0.$s.pdbqt/$id.pdbqt
 	done
-	cd ..
 done
 # Update 16_lig.pdbqt. This step requires 3 hours.
 ../../utilities/updatepdbqt ../2013-01-10/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ../2013-01-10/16_lig.pdbqt pdbqt 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv
