@@ -14,7 +14,10 @@ done
 ../../utilities/filtermol2 ../2013-01-10/16_id.csv $beg $end
 sort 16_p0.*.csv | tee 16_id_new.csv | uniq -d | xargs -I {} grep {} 16_p0.*.csv
 # Convert mol2 to pdbqt. This step requires a few days, and can be parallelized.
-for s in $(seq $beg 1 $end); do
+printf "10.0.32.1\n10.0.32.2\n10.0.32.3\n10.0.32.4\n10.0.32.5\n" > hosts
+echo "nohup ./convert.sh  > convert-\${MV2_COMM_WORLD_RANK}.out 2> convert-\${MV2_COMM_WORLD_RANK}.err < /dev/null &" > nohup.sh
+mpirun_rsh -hostfile hosts -n 5 nohup.sh
+for s in $(seq ${MV2_COMM_WORLD_RANK} ${MV2_COMM_WORLD_SIZE} $end); do
 	echo Converting 16_p0.$s
 	mkdir -p 16_p0.$s.pdbqt
 	for id in $(cat 16_p0.$s.csv); do
