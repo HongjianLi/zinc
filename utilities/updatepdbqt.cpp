@@ -180,7 +180,7 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	const auto prefix = string(argv[6]) + "/ZINC";
+	const auto prefix = string(argv[6]) + "/";
 	const auto suffix = ".pdbqt";
 	const auto mid = "99999999";
 	string line, oid, nid, prop, purch;
