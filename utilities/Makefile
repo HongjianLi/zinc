@@ -105,7 +105,7 @@ removehydrogens: removehydrogens.cpp
 	$(CC) -o $@ $<
 
 seekheaders: seekheaders.cpp
-	$(CC) -o $@ $< -lboost_system -lboost_filesystem
+	$(CC) -o $@ $<
 
 splitmol2: splitmol2.cpp
 	$(CC) -o $@ $<
