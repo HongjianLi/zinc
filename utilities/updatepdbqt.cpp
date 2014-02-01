@@ -176,7 +176,7 @@ int main(int argc, char* argv[])
 {
 	if (argc != 13)
 	{
-		cout << "updatepdbqt ~/istar/idock/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ~/istar/idock/16_lig.pdbqt pdbqt_folder 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv\n";
+		cout << "updatepdbqt ../2013-01-10/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ../2013-01-10/16_lig.pdbqt pdbqt_folder 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv\n";
 		return 0;
 	}
 
