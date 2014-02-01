@@ -176,19 +176,19 @@ int main(int argc, char* argv[])
 {
 	if (argc != 13)
 	{
-		cout << "updatepdbqt ../2013-01-10/16_id.csv 16_id_new.csv 16_prop.xls 16_purch.xls ../2013-01-10/16_lig.pdbqt pdbqt_folder 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv\n";
+		cout << "updatepdbqt ../2013-01-10/16_id.csv 16_id_new.csv 16_id_slice.csv 16_prop.xls 16_purch.xls ../2013-01-10/16_lig.pdbqt 16_id.csv 16_hdr.bin 16_prop.tsv 16_prop.bin 16_lig.pdbqt minmax.csv\n";
 		return 0;
 	}
 
-	const auto prefix = string(argv[6]) + "/";
 	const auto suffix = ".pdbqt";
 	const auto mid = "99999999";
-	string line, oid, nid, prop, purch;
+	string line, oid, nid, slice, prop, purch;
 	ifstream ifsoid(argv[1]);
 	ifstream ifsnid(argv[2]);
-	ifstream ifsprop(argv[3]);
-	ifstream ifspurch(argv[4]);
-	ifstream ifslig(argv[5]);
+	ifstream ifsslice(argv[3]);
+	ifstream ifsprop(argv[4]);
+	ifstream ifspurch(argv[5]);
+	ifstream ifslig(argv[6]);
 	ofstream ofsid(argv[7]);
 	ofstream ofshdr(argv[8]);
 	ofstream ofsproptsv(argv[9]);
@@ -196,6 +196,7 @@ int main(int argc, char* argv[])
 	ofstream ofslig(argv[11]);
 	getline(ifsoid, oid); // Initialize oid
 	if (!getline(ifsnid, nid)) nid = mid; // Initialize nid. Set nid = mid in case 16_id_new.csv is empty
+	getline(ifsslice, slice);
 	getline(ifsprop,  prop);  // Filter out header line
 	ofsproptsv << prop.substr(8, 59) << '\n'; // For prop.R, filter out the first ZINC_ID column and the last SMILES column
 	getline(ifsprop,  prop);  // Initialize prop
@@ -215,7 +216,7 @@ int main(int argc, char* argv[])
 				if (line[0] == 'T') break;
 			}
 		}
-		for (; nid < oid; nid = getline(ifsnid, nid) ? nid : mid)
+		for (; nid < oid; nid = getline(ifsnid, nid) ? nid : mid, getline(ifsslice, slice))
 		{
 			if (!output(nid, true, prop, purch, mwt_lb, mwt_ub, lgp_lb, lgp_ub, ads_lb, ads_ub, pds_lb, pds_ub, hbd_lb, hbd_ub, hba_lb, hba_ub, psa_lb, psa_ub, chg_lb, chg_ub, nrb_lb, nrb_ub, ifsprop, ifspurch, ifslig, ofsid, ofshdr, ofsproptsv, ofspropbin, ofslig))
 			{
@@ -223,7 +224,7 @@ int main(int argc, char* argv[])
 				++num_incomplete_ligands;
 				continue;
 			}
-			ifstream pdbqt(prefix + nid + suffix);
+			ifstream pdbqt("16_p0." + slice + "/" + nid + suffix);
 			while (getline(pdbqt, line) && line.size() != 4); // ROOT
 			do { ofslig << line << '\n'; } while (getline(pdbqt, line));
 		}
