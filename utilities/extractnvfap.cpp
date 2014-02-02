@@ -35,6 +35,11 @@ public:
 		coord[2] = stof(line.substr(46, 8));
 	}
 
+	bool ad_unsupported() const
+	{
+		return ad == n;
+	}
+
 	/// Returns true if the atom is a hydrogen atom.
 	bool is_hydrogen() const
 	{
@@ -191,6 +196,11 @@ int main(int argc, char* argv[])
 
 			// Parse the line.
 			atom a(line);
+			if (a.ad_unsupported())
+			{
+				cerr << line << endl;
+				continue;
+			}
 
 			if (a.is_hydrogen()) continue;
 
