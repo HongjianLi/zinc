@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 			cout << i << endl;
 			continue;
 		}
-		if (line.size() == 12)
+		if (line.size() == 12) // REMARK     0
 		{
 			cout << i << endl;
 			continue;
