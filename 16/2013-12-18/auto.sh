@@ -5,7 +5,7 @@ end=126
 for s in $(seq $beg $end); do
 	curl -s http://zinc.docking.org/db/bysubset/16/16_p0.$s.mol2.gz | gunzip > 16_p0.$s.mol2
 done
-# Split mol2's that are not in 16_id.csv. File stems are 8 characters wide, without the ZINC prefix. Output csv contains (id, slice). This step requires 7 hours.
+# Split mol2's that are not in 16_id.csv. File stems are 8 characters wide, without the ZINC prefix. Output csv is in (id, slice) format. This step requires 7 hours.
 for s in $(seq $beg $end); do
 	mkdir -p 16_p0.$s.m
 done
