@@ -13,7 +13,7 @@ done
 sort 16_p0.*.csv | tee 16_id_new.csv | uniq -d | xargs -I {} grep {} 16_p0.*.csv
 # Convert mol2 to pdbqt. This step requires a few days, and can be parallelized.
 for s in $(seq 0 6 $end); do
-	echo Converting 16_p0.$s
+	echo 16_p0.$s
 	mkdir -p 16_p0.$s.pdbqt
 	for z in $(cat 16_p0.$s.csv); do
 		python2.5 ${MGLTOOLS_ROOT}/MGLToolsPckgs/AutoDockTools/Utilities24/prepare_ligand4.pyo -U '' -l 16_p0.$s/$z.mol2 -o 16_p0.$s.pdbqt/$z.pdbqt
@@ -61,7 +61,8 @@ rm -rf *.mol2 16_p0.*
 mv *.png ~/istar/public/idock
 scp 16_prop.bin.gz pc89066:/home/hjli/istar/idock
 scp 16_lig.pdbqt 16_hdr.bin proj74:/home/hjli/nfs/hjli/istar/idock
-../../utilities/extractnvfap 16_lig.pdbqt > 16_nvfap.csv 2> extractnvfap.err
-tail -n +2 16_nvfap.csv | cut -d, -f6 | ../../utilities/minmax
 # Update minmax in web.js, public/idock/index.html, public/idock/index.js
 # Update num_ligands in idock/src/main.cpp
+../../utilities/extractnvfap 16_lig.pdbqt > 16_nvfap.csv 2> extractnvfap.err
+tail -n +2 16_nvfap.csv | cut -d, -f6- | ../../utilities/smmm
+# Update idock/src/main_cp.cpp, main_cu.cpp, main_cl.cpp
