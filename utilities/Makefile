@@ -1,6 +1,6 @@
 CC=clang++ -std=c++11 -O2
 
-all: alignfloat benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup mean minmax minmaxf overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmmf splitmol2 splitsdf updatepdbqt zincidtoindex
+all: alignfloat benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup mean minmax minmaxf overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex
 
 alignfloat: alignfloat.cpp
 	$(CC) -o $@ $<
@@ -105,6 +105,9 @@ removehydrogens: removehydrogens.cpp
 	$(CC) -o $@ $<
 
 seekheaders: seekheaders.cpp
+	$(CC) -o $@ $<
+
+smmm: smmm.cpp
 	$(CC) -o $@ $<
 
 smmmf: smmmf.cpp
