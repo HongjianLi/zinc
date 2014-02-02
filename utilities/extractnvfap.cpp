@@ -19,7 +19,7 @@ float distance_sqr(const array<float, 3>& a, const array<float, 3>& b)
 class atom
 {
 private:
-	static const size_t n = 30;
+	static const size_t n = 31;
 	static const array<string, n> ad_strings;
 	static const array<float, n> ad_covalent_radii;
 public:
@@ -58,21 +58,21 @@ public:
 /// AutoDock4 atom type names.
 const array<string, atom::n> atom::ad_strings =
 {
-	"H", //  0
+	"H",  //  0
 	"HD", //  1
-	"C", //  2
-	"A", //  3
-	"N", //  4
+	"C",  //  2
+	"A",  //  3
+	"N",  //  4
 	"NA", //  5
 	"OA", //  6
-	"S", //  7
+	"S",  //  7
 	"SA", //  8
 	"Se", //  9
-	"P", // 10
-	"F", // 11
+	"P",  // 10
+	"F",  // 11
 	"Cl", // 12
 	"Br", // 13
-	"I", // 14
+	"I",  // 14
 	"Zn", // 15
 	"Fe", // 16
 	"Mg", // 17
@@ -80,14 +80,15 @@ const array<string, atom::n> atom::ad_strings =
 	"Mn", // 19
 	"Cu", // 20
 	"Na", // 21
-	"K", // 22
+	"K",  // 22
 	"Hg", // 23
 	"Ni", // 24
 	"Co", // 25
 	"Cd", // 26
 	"As", // 27
 	"Sr", // 28
-	"U", // 29
+	"U",  // 29
+	"Cs", // 30
 };
 
 /// AutoDock4 covalent radii, factorized by 1.1 for extra allowance.
@@ -123,6 +124,7 @@ const array<float, atom::n> atom::ad_covalent_radii =
 	1.309f, // 27 = As, 1.309 = 1.1 * 1.19
 	2.112f, // 28 = Sr, 2.112 = 1.1 * 1.92
 	2.156f, // 29 = U , 2.156 = 1.1 * 1.96
+	2.475f, // 30 = Cs, 2.475 = 1.1 * 2.25
 };
 
 class frame
