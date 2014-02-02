@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <array>
 #include <vector>
@@ -152,12 +151,6 @@ public:
 
 int main(int argc, char* argv[])
 {
-	if (argc != 2)
-	{
-		cout << "extractnvfap 16_lig.pdbqt" << endl;
-		return 0;
-	}
-
 	vector<frame> frames; ///< ROOT and BRANCH frames.
 	vector<atom> atoms; ///< Heavy atoms. Coordinates are relative to frame origin, which is the first atom by default.
 	vector<vector<size_t>> bonds; ///< Covalent bonds.
@@ -170,10 +163,9 @@ int main(int argc, char* argv[])
 	size_t np; ///< Number of interacting pairs.
 	size_t current;
 	frame* f;
-	string line;
 	size_t n = 0;
 	cout << "idx,nv,nf,na,np,lig,sln,cnf" << endl;
-	for (ifstream ifs(argv[1]); getline(ifs, line);)
+	for (string line; getline(cin, line);)
 	{
 		const string record = line.substr(0, 6);
 		if (record == "ROOT")

@@ -52,6 +52,5 @@ scp 16_prop.bin.gz pc89066:/home/hjli/istar/idock
 scp 16_lig.pdbqt 16_hdr.bin hpc5:/home/hjli/nfs/hjli/istar/idock
 # Update num_ligands in idock/src/main.cpp
 # Update minmax in web.js, public/idock/index.html, public/idock/index.js
-../../utilities/extractnvfap 16_lig.pdbqt > 16_nvfap.csv 2> extractnvfap.err
-tail -n +2 16_nvfap.csv | cut -d, -f6- | ../../utilities/smmm
+../../utilities/extractnvfap < 16_lig.pdbqt | tail -n +2 | cut -d, -f6- | ../../utilities/smmm
 # Update idock/src/main_cp.cpp, main_cu.cpp, main_cl.cpp
