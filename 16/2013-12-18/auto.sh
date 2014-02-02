@@ -61,5 +61,7 @@ rm -rf *.mol2 16_p0.*
 mv *.png ~/istar/public/idock
 scp 16_prop.bin.gz pc89066:/home/hjli/istar/idock
 scp 16_lig.pdbqt 16_hdr.bin proj74:/home/hjli/nfs/hjli/istar/idock
+../../utilities/extractnvfap 16_lig.pdbqt > 16_nvfap.csv 2> extractnvfap.err
+tail -n +2 16_nvfap.csv | cut -d, -f6 | ../../utilities/minmax
 # Update minmax in web.js, public/idock/index.html, public/idock/index.js
 # Update num_ligands in idock/src/main.cpp
