@@ -1,6 +1,6 @@
 CC=clang++ -std=c++11 -O2
 
-all: alignfloat benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup mean minmax minmaxf overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex
+all: alignfloat benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex
 
 alignfloat: alignfloat.cpp
 	$(CC) -o $@ $<
@@ -81,15 +81,6 @@ insertprop: insertprop.cpp
 	$(CC) -o $@ $<
 
 insertsup: insertsup.cpp
-	$(CC) -o $@ $<
-
-mean: mean.cpp
-	$(CC) -o $@ $<
-
-minmax: minmax.cpp
-	$(CC) -o $@ $<
-
-minmaxf: minmaxf.cpp
 	$(CC) -o $@ $<
 
 overlaysubset: overlaysubset.cpp
