@@ -163,8 +163,7 @@ int main(int argc, char* argv[])
 	size_t np; ///< Number of interacting pairs.
 	size_t current;
 	frame* f;
-	size_t n = 0;
-	cout << "idx,nv,nf,na,np,lig,sln,cnf" << endl;
+	cout << "nv,nf,na,np,lig,sln,cnf" << endl;
 	for (string line; getline(cin, line);)
 	{
 		const string record = line.substr(0, 6);
@@ -327,7 +326,7 @@ int main(int argc, char* argv[])
 			const size_t lig_elems = 11 * nf + nf - 1 + 4 * na + 3 * np;
 			const size_t sln_elems = (1 + nv + 1 + nv + 3 * nf + 4 * nf + 3 * na + 3 * na + 3 * nf + 3 * nf) * 3 + (nv * (nv + 1) >> 1) + nv * 3;
 			const size_t cnf_elems = 1 + nv + 1;
-			cout << n++ << ',' << nv << ',' << nf << ',' << na << ',' << np << ',' << lig_elems << ',' << sln_elems << ',' << cnf_elems << '\n';
+			cout << nv << ',' << nf << ',' << na << ',' << np << ',' << lig_elems << ',' << sln_elems << ',' << cnf_elems << '\n';
 		}
 	}
 }
