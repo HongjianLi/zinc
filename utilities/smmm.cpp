@@ -5,10 +5,6 @@
 #include <algorithm>
 using namespace std;
 
-void output(const vector<size_t>& v)
-{
-}
-
 int main(int argc, char* argv[])
 {
 	string line;
