@@ -21,7 +21,7 @@ int main()
 		const auto mol = addHs(*sup.next());
 		const auto nrot = calcNumRotatableBonds(*mol);
 		const auto numConfs = nrot <= 7 ? 50 : (nrot <= 12 ? 200 : 300);
-		for (const auto id : EmbedMultipleConfs(*mol, numConfs))
+		for (const auto id : EmbedMultipleConfs(*mol, numConfs)) // pruneRmsThresh = 0.5, ignoreSmoothingFailures = true
 		{
 			auto ff = constructForceField(*mol, 100.0, id);
 			ff->initialize();
