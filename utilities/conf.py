@@ -15,5 +15,6 @@ for mol in sup:
 		ff = AllChem.UFFGetMoleculeForceField(mol, confId=id)
 		ff.Initialize()
 		ff.Minimize()
-		e = ff.CalcEnergy()		
+		e = ff.CalcEnergy()
+		rmsd = AllChem.GetBestRMS(mol, mol, 0, id)
 		writer.write(mol, confId=id)
