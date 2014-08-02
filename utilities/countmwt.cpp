@@ -7,12 +7,6 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	if (argc != 2)
-	{
-		cout << "countmwt 3c2f_ligand.pdbqt\n";
-		return 0;
-	}
-
 	const auto n = 14;;
 	const array<string, n> ad =
 	{
@@ -53,10 +47,9 @@ int main(int argc, char* argv[])
 	{
 		ad2wt[ad[i]] = wt[i];
 	}
-	string line;
 	size_t nha = 0;
 	double mwt = 0;
-	for (ifstream ifs(argv[1]); getline(ifs, line);)
+	for (string line; getline(cin, line);)
 	{
 		const string record = line.substr(0, 6);
 		if (record == "ATOM  " || record == "HETATM")
