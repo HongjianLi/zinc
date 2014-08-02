@@ -54,14 +54,17 @@ int main(int argc, char* argv[])
 		ad2wt[ad[i]] = wt[i];
 	}
 	string line;
+	size_t nha = 0;
 	double mwt = 0;
 	for (ifstream ifs(argv[1]); getline(ifs, line);)
 	{
 		const string record = line.substr(0, 6);
 		if (record == "ATOM  " || record == "HETATM")
 		{
-			mwt += ad2wt.at(line.substr(77, 2));
+			const string t = line.substr(77, 2);
+			if (t != "HD" && t != "H ") ++nha;
+			mwt += ad2wt.at(t);
 		}
 	}
-	cout << mwt << endl;
+	cout << nha << '\t' << mwt << endl;
 }
