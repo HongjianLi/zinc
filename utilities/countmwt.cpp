@@ -59,5 +59,5 @@ int main(int argc, char* argv[])
 			mwt += ad2wt.at(t);
 		}
 	}
-	cout << nha << '\t' << mwt << endl;
+	cout << nha << ',' << mwt << endl;
 }
