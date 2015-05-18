@@ -1,6 +1,6 @@
 CC=clang++ -std=c++11 -O2
 
-all: benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractligands extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex conf
+all: conf benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodehdr extractligands extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex
 
 benchmarkzip: benchmarkzip.cpp
 	$(CC) -o $@ $< -lboost_system -lboost_filesystem -lboost_iostreams -lboost_timer
@@ -115,6 +115,3 @@ updatepdbqt: updatepdbqt.cpp
 
 zincidtoindex: zincidtoindex.cpp
 	$(CC) -o $@ $<
-
-conf: conf.cpp
-	${CC} -o $@ $< -I/usr/include/rdkit -lGraphMol -lFileParsers -lDescriptors -lDistGeomHelpers -lForceFieldHelpers -lForceField
