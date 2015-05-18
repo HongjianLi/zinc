@@ -137,21 +137,29 @@ int main(int argc, char* argv[])
 	atoms.reserve(200); // A ligand typically consists of <= 200 heavy atoms.
 	bonds.reserve(200); // A ligand typically consists of <= 200 heavy atoms.
 	array<size_t, atom::n> counters; // Counters of each AutoDock4 type.
-	size_t nv; ///< Number of active frames.
+	size_t nat; ///< Number of active torsions.
 	size_t current;
 	frame* f;
-	size_t lineno = 0;
+	string zid;
+	size_t lineno = 0, ligandno = 0;
 	for (string line; getline(cin, line);)
 	{
 		++lineno;
 		const string record = line.substr(0, 6);
-		if (record == "ROOT")
+		if (record == "REMARK")
+		{
+			++ligandno;
+			zid = line.substr(11, 8);
+			getline(cin, line);
+			getline(cin, line);
+		}
+		else if (record == "ROOT")
 		{
 			frames.clear();
 			atoms.clear();
 			bonds.clear();
 			counters.fill(0);
-			nv = 0;
+			nat = 0;
 
 			frames.emplace_back(0, 0, 0); // ROOT is also treated as a frame. The parent, rotorXsrn, rotorYsrn, rotorXidx of ROOT frame are dummy.
 			f = &frames.front(); // Pointer to the current frame.
@@ -224,7 +232,7 @@ int main(int argc, char* argv[])
 			}
 			else
 			{
-				++nv;
+				++nat;
 			}
 
 			// Set up bonds between rotorX and rotorY.
@@ -252,7 +260,11 @@ int main(int argc, char* argv[])
 			const size_t hbd = counters[1];
 			const size_t hba = counters[5] + counters[6] + counters[8];
 			const size_t torsdof = stoul(line.substr(8));
-			assert(torsdof + 1 == frames.size());
+			const size_t nts = frames.size() - 1;
+			if (torsdof != nts)
+			{
+				cerr << "Ligand = " << ligandno << ", ZINC ID = " << zid << ", Line = " << lineno << ", torsdof = " << torsdof << ", nts = " << nts << endl;
+			}
 			size_t nhc = counters[2] + counters[3];
 			for (size_t k = 0; k < bonds.size(); ++k)
 			{
@@ -270,7 +282,7 @@ int main(int argc, char* argv[])
 			}
 			assert(nhc <= atoms.size());
 			for (const auto c : counters) cout << c << '\t';
-			cout << na << '\t' << atoms.size() << '\t' << hbd << '\t' << hba << '\t' << nhc << '\t' << torsdof << '\t' << nv << '\t' << mwt << endl;
+			cout << na << '\t' << atoms.size() << '\t' << hbd << '\t' << hba << '\t' << nhc << '\t' << nts << '\t' << nat << '\t' << mwt << endl;
 		}
 	}
 }
