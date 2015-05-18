@@ -136,8 +136,8 @@ int main(int argc, char* argv[])
 	frames.reserve(50); // A ligand typically consists of <= 50 frames.
 	atoms.reserve(200); // A ligand typically consists of <= 200 heavy atoms.
 	bonds.reserve(200); // A ligand typically consists of <= 200 heavy atoms.
+	array<size_t, atom::n> counters; // Counters of each AutoDock4 type.
 	size_t nv; ///< Number of active frames.
-	array<size_t, atom::n> counters{};
 	size_t current;
 	frame* f;
 	size_t lineno = 0;
@@ -150,11 +150,12 @@ int main(int argc, char* argv[])
 			frames.clear();
 			atoms.clear();
 			bonds.clear();
+			counters.fill(0);
+			nv = 0;
 
 			frames.emplace_back(0, 0, 0); // ROOT is also treated as a frame. The parent, rotorXsrn, rotorYsrn, rotorXidx of ROOT frame are dummy.
 			f = &frames.front(); // Pointer to the current frame.
 			current = 0; // Index of current frame, initialized to ROOT frame.
-			nv = 0;
 		}
 		else if (record == "ATOM  " || record == "HETATM")
 		{
