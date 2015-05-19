@@ -55,7 +55,7 @@ bool output(const string& id, const bool nid, string& prop, string& purch, float
 		chg = stoi(prop.substr(t7 + 1, t8 - t7 - 1));
 		nrb = stoul(prop.substr(t8 + 1, t9 - t8 - 1));
 		remarks
-			<< "REMARK     " << id
+			<< "REMARK 911 " << id
 			<< ' ' << setw(8) << mwt
 			<< ' ' << setw(8) << lgp
 			<< ' ' << setw(8) << ads
@@ -68,7 +68,7 @@ bool output(const string& id, const bool nid, string& prop, string& purch, float
 			<< "    \n";
 
 		const string smiles = prop.substr(t9 + 1);
-		remarks << "REMARK     " << smiles << '\n';
+		remarks << "REMARK 912 " << smiles << '\n';
 
 		// Parse purchasing information
 		vector<string> suppliers;
@@ -81,7 +81,7 @@ bool output(const string& id, const bool nid, string& prop, string& purch, float
 			}
 		} while (getline(ifspurch, purch) && purch.substr(4, 8) == id);
 		sort(suppliers.begin(), suppliers.end());
-		remarks << "REMARK     " << suppliers.size();
+		remarks << "REMARK 913 " << suppliers.size();
 		for (const auto& s : suppliers) remarks << " | " << s;
 		remarks << '\n';
 
