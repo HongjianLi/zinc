@@ -173,11 +173,7 @@ int main(int argc, char* argv[])
 
 			// Parse the line.
 			atom a(line);
-			if (a.ad_unsupported())
-			{
-				cerr << "Unsupported atom type at line " << lineno << endl << line << endl;
-				continue;
-			}
+			assert(!a.ad_unsupported());
 
 			++counters[a.ad];
 
@@ -260,11 +256,7 @@ int main(int argc, char* argv[])
 			const size_t hbd = counters[1];
 			const size_t hba = counters[5] + counters[6] + counters[8];
 			const size_t torsdof = stoul(line.substr(8));
-			const size_t nts = frames.size() - 1;
-			if (torsdof != nts)
-			{
-				cerr << "Ligand = " << ligandno << ", ZINC ID = " << zid << ", Line = " << lineno << ", torsdof = " << torsdof << ", nts = " << nts << endl;
-			}
+			const size_t nts = frames.size() - 1; // In most cases, torsdof == nts. In some cases, torsdof == frames.size(). So, do not rely on the TORSDOF value.
 			size_t nhc = counters[2] + counters[3];
 			for (size_t k = 0; k < bonds.size(); ++k)
 			{
