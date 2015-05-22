@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 #include <array>
@@ -130,6 +131,8 @@ public:
 
 int main(int argc, char* argv[])
 {
+	cout.setf(ios::fixed, ios::floatfield);
+	cout << setprecision(3);
 	vector<frame> frames; ///< ROOT and BRANCH frames.
 	vector<atom> atoms; ///< Heavy atoms. Coordinates are relative to frame origin, which is the first atom by default.
 	vector<vector<size_t>> bonds; ///< Covalent bonds.
