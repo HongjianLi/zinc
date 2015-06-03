@@ -1,22 +1,20 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-//#include <cstdint>
+#include <cstdint>
 using namespace std;
 
 class property
 {
 public:
 	float mwt, lgp, ads, pds;
-	int hbd, hba, psa, chg, nrb;
+	int16_t hbd, hba, psa, chg, nrb;
 };
 
 int main()
 {
-	string line;
-	vector<property> properties;
 	vector<string> tokens(9);
-	while (getline(cin, line))
+	for (string line; getline(cin, line);)
 	{
 		for (size_t comma0 = 0, index = 0; true;)
 		{
@@ -29,18 +27,18 @@ int main()
 			tokens[index++] = line.substr(comma0, comma1 - comma0);
 			comma0 = comma1 + 1;
 		}
-		properties.push_back(property
+		property p
 		{
 			stof(tokens[0]),
 			stof(tokens[1]),
 			stof(tokens[2]),
 			stof(tokens[3]),
-			stoi(tokens[4]),
-			stoi(tokens[5]),
-			stoi(tokens[6]),
-			stoi(tokens[7]),
-			stoi(tokens[8]),
-		});
+			static_cast<int16_t>(stoi(tokens[4])),
+			static_cast<int16_t>(stoi(tokens[5])),
+			static_cast<int16_t>(stoi(tokens[6])),
+			static_cast<int16_t>(stoi(tokens[7])),
+			static_cast<int16_t>(stoi(tokens[8])),
+		};
+		cout.write(reinterpret_cast<char*>(&p), 26);
 	}
-	cout.write(reinterpret_cast<char*>(properties.data()), sizeof(property) * properties.size());
 }
