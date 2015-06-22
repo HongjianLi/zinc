@@ -3,9 +3,9 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	size_t e;
-	while (cin.read(reinterpret_cast<char*>(&e), sizeof(e)))
+	size_t g;
+	while (cin.read(reinterpret_cast<char*>(&g), sizeof(g)))
 	{
-		cout << e << endl;
+		cout << g << endl;
 	}
 }
