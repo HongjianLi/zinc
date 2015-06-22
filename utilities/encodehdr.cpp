@@ -1,12 +1,12 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+	size_t g;
 	for (string line; getline(cin, line);)
 	{
-		const size_t offset = stoul(line);
-		cout.write(reinterpret_cast<const char*>(&offset), sizeof(offset));
+		g = stoul(line);
+		cout.write(reinterpret_cast<char*>(&g), sizeof(g));
 	}
 }
