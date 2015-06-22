@@ -144,19 +144,10 @@ int main(int argc, char* argv[])
 	size_t current;
 	frame* f;
 	string zid;
-	size_t lineno = 0, ligandno = 0;
 	for (string line; getline(cin, line);)
 	{
-		++lineno;
 		const string record = line.substr(0, 6);
-		if (record == "REMARK")
-		{
-			++ligandno;
-			zid = line.substr(11, 8);
-			getline(cin, line);
-			getline(cin, line);
-		}
-		else if (record == "ROOT")
+		if (record == "ROOT")
 		{
 			frames.clear();
 			atoms.clear();
@@ -277,7 +268,7 @@ int main(int argc, char* argv[])
 			}
 			assert(nhc <= atoms.size());
 			for (const auto c : counters) cout << c << '\t';
-			cout << na << '\t' << atoms.size() << '\t' << hbd << '\t' << hba << '\t' << nhc << '\t' << nts << '\t' << nat << '\t' << mwt << endl;
+			cout << /*na << '\t' << */atoms.size() << '\t' << hbd << '\t' << hba << '\t' << nhc << '\t' << nts << '\t' << nat << '\t' << mwt << endl;
 		}
 	}
 }
