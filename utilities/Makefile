@@ -1,6 +1,6 @@
 CC=clang++ -std=c++11 -O2
 
-all: benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodeuint64 extractligands extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex statligand genheaderfrompdbqt encodeprop encodestat genheaderfromsdf decodeuint64
+all: benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodeuint64 extractligands extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex statligand genheaderfrompdbqt encodeprop encodestat genheaderfromsdf decodeuint64 decodedouble
 
 benchmarkzip: benchmarkzip.cpp
 	$(CC) -o $@ $< -lboost_system -lboost_filesystem -lboost_iostreams -lboost_timer
@@ -132,4 +132,7 @@ genheaderfromsdf: genheaderfromsdf.cpp
 	$(CC) -o $@ $<
 
 decodeuint64: decodeuint64.cpp
+	$(CC) -o $@ $<
+
+decodedouble: decodedouble.cpp
 	$(CC) -o $@ $<
