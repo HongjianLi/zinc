@@ -3,12 +3,11 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	size_t g;
+	int16_t g;
 	const auto a = reinterpret_cast<char*>(&g);
 	const auto s = sizeof(g);
-	for (string line; getline(cin, line);)
+	while (cin.read(a, s))
 	{
-		g = stoul(line);
-		cout.write(a, s);
+		cout << g << endl;
 	}
 }

@@ -1,6 +1,10 @@
 CC=clang++ -std=c++11 -O2
 
-all: benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands encodeuint64 extractligands extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex statligand genheaderfrompdbqt encodeprop encodestat genheaderfromsdf decodeuint64 decodedouble
+all: benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands extractligands extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex statligand genheaderfrompdbqt encodeprop encodestat genheaderfromsdf genheaderfromtxt genfooterfrompdbqt genfooterfromsdf genfooterfromtxt encodeTypes decodeTypes
+
+encodeTypes: encodeuint64 encodeint16 encodedouble encodefloat
+
+decodeTypes: decodeuint64 decodeint16 decodedouble decodefloat
 
 benchmarkzip: benchmarkzip.cpp
 	$(CC) -o $@ $< -lboost_system -lboost_filesystem -lboost_iostreams -lboost_timer
@@ -45,9 +49,6 @@ decodeprop: decodeprop.cpp
 	$(CC) -o $@ $< -lboost_system -lboost_timer
 
 dumpligands: dumpligands.cpp
-	$(CC) -o $@ $<
-
-encodeuint64: encodeuint64.cpp
 	$(CC) -o $@ $<
 
 extractligands: extractligands.cpp
@@ -122,6 +123,9 @@ statligand: statligand.cpp
 genheaderfrompdbqt: genheaderfrompdbqt.cpp
 	$(CC) -o $@ $<
 
+genfooterfrompdbqt: genfooterfrompdbqt.cpp
+	$(CC) -o $@ $<
+
 encodeprop: encodeprop.cpp
 	$(CC) -o $@ $<
 
@@ -131,8 +135,35 @@ encodestat: encodestat.cpp
 genheaderfromsdf: genheaderfromsdf.cpp
 	$(CC) -o $@ $<
 
+genfooterfromsdf: genfooterfromsdf.cpp
+	$(CC) -o $@ $<
+
+genheaderfromtxt: genheaderfromtxt.cpp
+	$(CC) -o $@ $<
+
+genfooterfromtxt: genfooterfromtxt.cpp
+	$(CC) -o $@ $<
+
+encodeuint64: encodeuint64.cpp
+	$(CC) -o $@ $<
+
+encodeint16: encodeint16.cpp
+	$(CC) -o $@ $<
+
+encodedouble: encodedouble.cpp
+	$(CC) -o $@ $<
+
+encodefloat: encodefloat.cpp
+	$(CC) -o $@ $<
+
 decodeuint64: decodeuint64.cpp
 	$(CC) -o $@ $<
 
+decodeint16: decodeint16.cpp
+	$(CC) -o $@ $<
+
 decodedouble: decodedouble.cpp
+	$(CC) -o $@ $<
+
+decodefloat: decodefloat.cpp
 	$(CC) -o $@ $<

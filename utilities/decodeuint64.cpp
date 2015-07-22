@@ -4,7 +4,9 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	size_t g;
-	while (cin.read(reinterpret_cast<char*>(&g), sizeof(g)))
+	const auto a = reinterpret_cast<char*>(&g);
+	const auto s = sizeof(g);
+	while (cin.read(a, s))
 	{
 		cout << g << endl;
 	}
