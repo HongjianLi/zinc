@@ -23,15 +23,12 @@ int main(int argc, char* argv[])
 	size_t id = 0;
 	for (string line; getline(cin, line);)
 	{
+		lines.push_back(line);
 		if (line == delimiter)
 		{
 			// Dump previous molecule.
 			dump(lines, to_string(++id) + ".sdf");
 			lines.clear();
-		}
-		else
-		{
-			lines.push_back(line);
 		}
 	}
 
