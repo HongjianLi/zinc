@@ -1,6 +1,6 @@
 CC=clang++ -std=c++11 -O2
 
-all: benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands extractligands extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex statligand genheaderfrompdbqt encodeprop encodestat genheaderfromsdf genheaderfromtxt genfooterfrompdbqt genfooterfromsdf genfooterfromtxt encodeTypes decodeTypes
+all: benchmarkzip castprop checkheaders combinecolumns combinepdbqt combinesuppliers combinevendors countfiles countha counthac countheaders countligands countmwt decodeprop dumpligands extractligands extractlines extractnvfap extractpurch filterid filtermol2 filtermol2id filterxls findminmax insertprop insertsup overlaysubset parsecatalogs removeduplicates removehydrogens seekheaders smmm smmmf splitmol2 splitsdf updatepdbqt zincidtoindex statligand genheaderfrompdbqt encodeprop encodestat genheaderfromsdf genheaderfromtxt genfooterfrompdbqt genfooterfromsdf genfooterfromtxt encodeTypes decodeTypes inclusivescan
 
 encodeTypes: encodeuint64 encodeint16 encodedouble encodefloat
 
@@ -166,4 +166,7 @@ decodedouble: decodedouble.cpp
 	$(CC) -o $@ $<
 
 decodefloat: decodefloat.cpp
+	$(CC) -o $@ $<
+
+inclusivescan: inclusivescan.cpp
 	$(CC) -o $@ $<
